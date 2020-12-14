@@ -16,11 +16,10 @@ import (
 	"time"
 )
 
-
 const (
 	dumpRaw = false
 	zip     = "150000,ru"
-	api     =  "99a2c3bc9d5f4bfde5eb78c75845393d"
+	api     = "99a2c3bc9d5f4bfde5eb78c75845393d"
 )
 
 var (
@@ -29,17 +28,17 @@ var (
 
 func main() {
 	// Создаем графическую часть
-    a := app.New()
+	a := app.New()
 	a.Settings().SetTheme(theme.DarkTheme())
-    win := a.NewWindow("Погода Ярославль")
-    //win.SetFullScreen(true)
-    win.CenterOnScreen()
+	win := a.NewWindow("Погода Ярославль")
+	//win.SetFullScreen(true)
+	win.CenterOnScreen()
 	showInfo(win)
 	win.ShowAndRun()
 
 }
 
-func showInfo(win fyne.Window ) {
+func showInfo(win fyne.Window) {
 
 	// Читаем данные.
 	urlString := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?zip=%s&APPID=%s", zip, api)
@@ -70,7 +69,6 @@ func showInfo(win fyne.Window ) {
 		fmt.Printf("%+v", data)
 	}
 
-
 	var vBox = widget.NewVBox()
 	var groupBox = widget.NewVBox()
 	var groupBox1 = widget.NewVBox()
@@ -94,7 +92,7 @@ func showInfo(win fyne.Window ) {
 							var icon = widget.NewIcon(resource)
 							vBox.Append(icon)
 						} else {
-							if strings.Contains(kk, "description"){
+							if strings.Contains(kk, "description") {
 								groupBox.Append(widget.NewVBox(
 									widget.NewLabelWithStyle(fmt.Sprintf("%v", vv),
 										fyne.TextAlignTrailing, fyne.TextStyle{Bold: true, Monospace: true})))
@@ -134,16 +132,16 @@ func showInfo(win fyne.Window ) {
 					} else {
 						if isSpeed(kk) {
 							groupBox3.Append(widget.NewVBox(
-								widget.NewLabelWithStyle(fmt.Sprintf("Скорость ветра (м/c):  %v", vv), fyne.TextAlignLeading, fyne.TextStyle{ Monospace: true})))
+								widget.NewLabelWithStyle(fmt.Sprintf("Скорость ветра (м/c):  %v", vv), fyne.TextAlignLeading, fyne.TextStyle{Monospace: true})))
 						}
 						if isClouds(kk) {
 							groupBox3.Append(widget.NewVBox(
-								widget.NewLabelWithStyle(fmt.Sprintf("Затянутость неба:  %v ", vv.(float64)), fyne.TextAlignLeading, fyne.TextStyle{ Monospace: true})))
+								widget.NewLabelWithStyle(fmt.Sprintf("Затянутость неба:  %v ", vv.(float64)), fyne.TextAlignLeading, fyne.TextStyle{Monospace: true})))
 						}
 						if isFeelsLike(kk) {
 							var temp = C2K(vv.(float64))
 							groupBox3.Append(widget.NewVBox(
-								widget.NewLabelWithStyle(fmt.Sprintf("Температура ощущается как:  %v", temp), fyne.TextAlignLeading, fyne.TextStyle{ Monospace: true})))
+								widget.NewLabelWithStyle(fmt.Sprintf("Температура ощущается как:  %v", temp), fyne.TextAlignLeading, fyne.TextStyle{Monospace: true})))
 						}
 						fmt.Printf("\tthe %s is %v\n", kk, vv)
 
@@ -216,7 +214,6 @@ func save(fileName string) {
 	if dumpRaw {
 		fmt.Printf("%+v", data)
 	}
-
 
 	for k, v := range data {
 		val, isArray := isKey(k)
